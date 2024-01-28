@@ -8,7 +8,9 @@ export const normalizeCollection = (syliusTaxon: SyliusTaxon): Collection => {
       description: syliusTaxon.description
     },
     code: syliusTaxon.code,
+    description: syliusTaxon.description,
     title: syliusTaxon.name,
+    updatedAt: syliusTaxon.updatedAt,
     path: `/search/${syliusTaxon.code}`
   };
 };

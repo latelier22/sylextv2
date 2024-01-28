@@ -9,7 +9,8 @@ import {
   Collection,
   GetCollectionProductsPayload,
   GetProductsPayload,
-  UpdateCartPayload
+  UpdateCartPayload,
+  Page
 } from './types';
 
 const DOMAIN = `${process.env.NEXT_PUBLIC_SYLIUS_BACKEND_API}`;
@@ -55,8 +56,37 @@ export default async function syliusRequest(
 }
 
 // Pages
-export const getPages = () => [];
-export const getPage = () => {};
+export const getPages = () => {
+  const currentDate = new Date().toISOString();
+  return [
+    {
+      title: 'Fake Page',
+      body: 'mon contenu',
+      seo: {
+        title: 'Fake SEO Title',
+        description: 'Fake SEO Description'
+      },
+      bodySummary: 'This is the body summary of the fake page.',
+      createdAt: currentDate,
+      updatedAt: currentDate
+    }
+  ];
+};
+
+export const getPage = (page: string) => {
+  const currentDate = new Date().toISOString();
+  return {
+    title: 'Fake Page',
+    body: 'mon contenu',
+    seo: {
+      title: 'Fake SEO Title',
+      description: 'Fake SEO Description'
+    },
+    bodySummary: 'This is the body summary of the fake page.',
+    createdAt: currentDate,
+    updatedAt: currentDate
+  };
+};
 
 // Products
 export const getProducts = async (payload: GetProductsPayload) => {
@@ -99,9 +129,15 @@ export const getProduct = async (slug: string) => {
 
   return product;
 };
-export const getProductRecommendations = () => {
-  return [];
+export const getProductRecommendations = async (slug: string) => {
+  const data = await syliusRequest(REST_METHODS.GET, '/products-by-slug/' + slug);
+
+  const syliusProduct = data.body;
+  const product = normalizeProduct(syliusProduct);
+
+  return [product];
 };
+
 export const getCollections = async (): Promise<Collection[]> => {
   const data = await syliusRequest(REST_METHODS.GET, '/taxons');
 

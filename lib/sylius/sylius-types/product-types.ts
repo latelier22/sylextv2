@@ -56,4 +56,5 @@ export interface SyliusTaxon {
   name: string;
   slug: string;
   description: string;
+  updatedAt: string;
 }

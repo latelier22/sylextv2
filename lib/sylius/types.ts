@@ -33,6 +33,18 @@ export interface Money {
   currencyCode: string;
 }
 
+export interface Page {
+  title: string;
+  body: string;
+  seo?: {
+    title?: string;
+    description?: string;
+  };
+  bodySummary: string;
+  createdAt: string; // Assurez-vous que le type de createdAt correspond à ce que votre API retourne
+  updatedAt: string; // Assurez-vous que le type de updatedAt correspond à ce que votre API retourne
+}
+
 export interface Product {
   seo?: {
     title?: string;
@@ -91,9 +103,11 @@ export interface Collection {
     title?: string;
     description?: string;
   };
+  description: string;
   code: string;
   title: string;
   path: string;
+  updatedAt: string;
 }
 
 export interface GetCollectionProductsPayload {
